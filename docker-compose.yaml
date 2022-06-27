@@ -111,14 +111,12 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: ms-zookeeper-1:2181
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: ms-kafka-1:9092
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://ms-schema-registry:8081
-      KAFKA_CLUSTERS_0_SCHEMANAMETEMPLATE: "%s-schema" # Map topics to schemas, e.g. topic 'person' will use schema 'person-schema' (is it working?)
+      # KAFKA_CLUSTERS_0_SCHEMANAMETEMPLATE: "%s-schema" # Map topics to schemas, e.g. topic 'person' will use schema 'person-schema' (is it working?)
 
   # -------------------- Microservices -------------------- #
   python-srv:
     container_name: ms-python-app
     depends_on:
-      - kafka-1
-      - kafka-2
-      - kafka-3
+      - schema-registry
     build:
       context: ./python-srv
