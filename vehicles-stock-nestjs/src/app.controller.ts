@@ -6,12 +6,16 @@ import {
   ParseIntPipe,
   Post,
 } from '@nestjs/common'
-import { PrismaService } from './prisma.service'
+import { PrismaService } from './services/prisma.service'
+import { VehicleCreatedProducer } from './services/vehicle-created-producer.service'
 import { CreateVehicleDto } from './dtos/create-vehicle.dto'
 
 @Controller('stock')
 export class AppController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly vehicleCreatedProducer: VehicleCreatedProducer,
+  ) {}
 
   @Get()
   getVehicles() {
@@ -26,9 +30,15 @@ export class AppController {
   }
 
   @Post()
-  createVehicle(@Body() createVehicleDto: CreateVehicleDto) {
-    return this.prisma.vehicle.create({
+  async createVehicle(@Body() createVehicleDto: CreateVehicleDto) {
+    const vehicle = await this.prisma.vehicle.create({
       data: createVehicleDto,
     })
+
+    this.vehicleCreatedProducer.emit(vehicle).catch((error) => {
+      console.log('ERROR emitting:', vehicle, error)
+    })
+
+    return vehicle
   }
 }

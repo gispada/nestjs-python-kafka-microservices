@@ -5,4 +5,4 @@ COPY . .
 RUN npm install
 RUN npm run build
 
-CMD ["npm", "run", "start:prod"]
+CMD ./wait-for http://ms-schema-registry:8081 -t 60 -- npm run start:prod

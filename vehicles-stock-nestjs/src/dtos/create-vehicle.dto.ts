@@ -1,4 +1,11 @@
-import { IsIn, IsNotEmpty, IsPositive, IsString } from 'class-validator'
+import {
+  IsIn,
+  IsNotEmpty,
+  IsPositive,
+  IsString,
+  Max,
+  Min,
+} from 'class-validator'
 
 export class CreateVehicleDto {
   @IsString()
@@ -9,7 +16,8 @@ export class CreateVehicleDto {
   @IsNotEmpty()
   model: string
 
-  @IsIn([1900, new Date().getFullYear()])
+  @Min(1900)
+  @Max(new Date().getFullYear())
   year: number
 
   @IsString()
@@ -19,7 +27,7 @@ export class CreateVehicleDto {
   @IsPositive()
   odometer: number
 
-  @IsString()
+  @IsIn(['km', 'mi'])
   @IsNotEmpty()
   odometerUnit: string
 }
