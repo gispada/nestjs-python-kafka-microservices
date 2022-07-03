@@ -133,7 +133,7 @@ services:
 
   # -------------------- Databases -------------------- #
   vehicles-stock-db:
-    image: postgres:latest
+    image: "postgres:${POSTGRES_TAG}"
     container_name: ms-vehicles-stock-db
     expose:
       - 5432
