@@ -1,9 +1,10 @@
+import os
 from schema_registry.client import SchemaRegistryClient, schema as s
 from schema_registry.serializers import JsonMessageSerializer
 
 class Schema:
     def __init__(self, schema_name, schema):
-        self.client = SchemaRegistryClient(url='http://ms-schema-registry:8081')
+        self.client = SchemaRegistryClient(url=os.getenv('SCHEMA_REGISTRY_URL'))
         
         self.json_message_serializer = JsonMessageSerializer(
             schemaregistry_client=self.client, reader_schema=schema)

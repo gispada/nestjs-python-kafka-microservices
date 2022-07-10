@@ -114,12 +114,19 @@ services:
       # KAFKA_CLUSTERS_0_SCHEMANAMETEMPLATE: "%s-schema" # Map topics to schemas, e.g. topic 'person' will use schema 'person-schema' (is it working?)
 
   # -------------------- Microservices -------------------- #
-  python-srv:
-    container_name: ms-python-app
+  price-estimate-1:
+    container_name: ms-price-estimate-1
     depends_on:
       - schema-registry
     build:
-      context: ./python-srv
+      context: ./price-estimate-python
+
+  price-estimate-2:
+    container_name: ms-price-estimate-2
+    depends_on:
+      - schema-registry
+    build:
+      context: ./price-estimate-python
 
   vehicles-stock:
     container_name: ms-vehicles-stock

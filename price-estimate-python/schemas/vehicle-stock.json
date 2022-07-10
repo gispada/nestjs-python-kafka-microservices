@@ -1,0 +1,39 @@
+{
+  "$id": "nestjs-python-kafka/vehicle-stock.schema.json",
+  "type": "object",
+  "required": [
+    "id",
+    "vin",
+    "model",
+    "year",
+    "manufacturer",
+    "odometer",
+    "odometerUnit"
+  ],
+  "properties": {
+    "id": {
+      "type": "number"
+    },
+    "vin": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "year": {
+      "type": "number"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "odometer": {
+      "type": "number"
+    },
+    "odometerUnit": {
+      "enum": [
+        "km",
+        "mi"
+      ]
+    }
+  }
+}

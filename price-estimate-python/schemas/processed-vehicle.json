@@ -1,0 +1,43 @@
+{
+  "$id": "nestjs-python-kafka/processed-vehicle.schema.json",
+  "type": "object",
+  "required": [
+    "vin",
+    "model",
+    "year",
+    "manufacturer",
+    "odometer",
+    "odometerUnit",
+    "price",
+    "priceUnit"
+  ],
+  "properties": {
+    "vin": {
+      "type": "string"
+    },
+    "model": {
+      "type": "string"
+    },
+    "year": {
+      "type": "number"
+    },
+    "manufacturer": {
+      "type": "string"
+    },
+    "odometer": {
+      "type": "number"
+    },
+    "odometerUnit": {
+      "enum": [
+        "km",
+        "mi"
+      ]
+    },
+    "price": {
+      "type": "number"
+    },
+    "priceUnit": {
+      "type": "string"
+    }
+  }
+}
