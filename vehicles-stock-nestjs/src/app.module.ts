@@ -24,6 +24,7 @@ const imports = [
             brokers: [config.get('kafka.bootstrapServer')],
           },
           producer: { idempotent: true, allowAutoTopicCreation: true },
+          consumer: { groupId: 'ms-vehicles-stock' },
         },
       }),
       inject: [ConfigService],
