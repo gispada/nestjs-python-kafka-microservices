@@ -1,37 +1,52 @@
 import { Inject, Module, OnApplicationBootstrap } from '@nestjs/common'
 import { ClientKafka, ClientsModule, Transport } from '@nestjs/microservices'
+import { ConfigModule, ConfigService } from '@nestjs/config'
 import { SchemaRegistry } from '@kafkajs/confluent-schema-registry'
 import { PrismaService } from './services/prisma.service'
 import { VehicleCreatedProducer } from './services/vehicle-created-producer.service'
 import { AppController } from './app.controller'
+import configuration from './config'
 import { KAFKA_SERVICE } from './constants'
 
-// Note: this app is only a producer
-@Module({
-  imports: [
-    ClientsModule.register([
-      {
-        name: KAFKA_SERVICE,
+const imports = [
+  ConfigModule.forRoot({
+    load: [configuration],
+    isGlobal: true,
+  }),
+  ClientsModule.registerAsync([
+    {
+      name: KAFKA_SERVICE,
+      useFactory: (config: ConfigService) => ({
         transport: Transport.KAFKA,
         options: {
           client: {
             clientId: 'vehicles-stock-app',
-            brokers: ['ms-kafka-1:9092'],
+            brokers: [config.get('kafka.bootstrapServer')],
           },
           producer: { idempotent: true, allowAutoTopicCreation: true },
         },
-      },
-    ]),
-  ],
-  controllers: [AppController],
-  providers: [
-    PrismaService,
-    {
-      provide: SchemaRegistry,
-      useValue: new SchemaRegistry({ host: 'http://ms-schema-registry:8081' }),
+      }),
+      inject: [ConfigService],
     },
-    VehicleCreatedProducer,
-  ],
+  ]),
+]
+
+const providers = [
+  PrismaService,
+  {
+    provide: SchemaRegistry,
+    useFactory: (config: ConfigService) =>
+      new SchemaRegistry({ host: config.get('kafka.schemaRegistry') }),
+    inject: [ConfigService],
+  },
+  VehicleCreatedProducer,
+]
+
+// Note: this app is only a producer
+@Module({
+  imports,
+  controllers: [AppController],
+  providers,
 })
 export class AppModule implements OnApplicationBootstrap {
   constructor(

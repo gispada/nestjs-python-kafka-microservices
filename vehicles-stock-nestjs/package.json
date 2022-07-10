@@ -24,6 +24,7 @@
   "dependencies": {
     "@kafkajs/confluent-schema-registry": "^3.2.1",
     "@nestjs/common": "^8.4.7",
+    "@nestjs/config": "^2.1.0",
     "@nestjs/core": "^8.4.7",
     "@nestjs/microservices": "^8.4.7",
     "@nestjs/platform-express": "^8.4.7",
