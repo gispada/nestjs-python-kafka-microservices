@@ -146,7 +146,6 @@ services:
       KAFKA_CLUSTERS_0_ZOOKEEPER: ms-zookeeper-1:2181
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: ms-kafka-1:9092
       KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://ms-schema-registry-balancer:8088
-      # KAFKA_CLUSTERS_0_SCHEMANAMETEMPLATE: "%s-schema" # Map topics to schemas, e.g. topic 'person' will use schema 'person-schema' (is it working?)
 
   # -------------------- Microservices -------------------- #
   price-estimate-1:
