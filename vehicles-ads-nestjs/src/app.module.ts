@@ -3,7 +3,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config'
 import { MongooseModule } from '@nestjs/mongoose'
 import { SchemaRegistry } from '@kafkajs/confluent-schema-registry'
 import { AppController } from './app.controller'
-import { VehicleAd, VehicleAdSchema } from './mongoose/vehicle-ad.schema'
+import { VehicleAd, VehicleAdSchema } from './models/vehicle-ad.schema'
 import configuration from './config'
 
 const imports = [

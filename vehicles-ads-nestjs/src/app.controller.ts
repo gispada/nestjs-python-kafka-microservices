@@ -4,7 +4,7 @@ import { InjectModel } from '@nestjs/mongoose'
 import type { Model } from 'mongoose'
 import { SchemaRegistry } from '@kafkajs/confluent-schema-registry'
 import { KafkaMessage } from 'kafkajs'
-import { VehicleAd, VehicleAdDocument } from './mongoose/vehicle-ad.schema'
+import { VehicleAd, VehicleAdDocument } from './models/vehicle-ad.schema'
 import { VEHICLE_PROCESSED_TOPIC } from './constants'
 import { ProcessedVehicle } from './types'
 
