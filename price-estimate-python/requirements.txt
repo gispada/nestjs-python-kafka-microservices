@@ -1,0 +1,2 @@
+kafka-python==2.0.2
+python-schema-registry-client==2.4.0
